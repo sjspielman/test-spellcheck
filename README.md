@@ -2,6 +2,6 @@
 let's make it happen
 
 
-Some of these werds are speeled correctly, but others are spelled wronggly.
+Some of these words are spelled correctly, but others are spelled wrongly.
 
-ScPCA is an acronyme that has been added to `.github/components/dictionary.txt`.
+ScPCA is an acronym that has been added to `.github/components/dictionary.txt`.
