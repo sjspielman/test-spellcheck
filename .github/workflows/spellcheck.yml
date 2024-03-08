@@ -8,6 +8,8 @@ jobs:
   spell-check:
     runs-on: ubuntu-latest
     name: Spell check files
+    permissions:
+      pull-requests: write
     steps:
 
       - name: Checkout
