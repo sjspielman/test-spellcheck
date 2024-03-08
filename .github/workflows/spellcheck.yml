@@ -25,12 +25,6 @@ jobs:
           name: spell_check_errors
           path: spell_check_errors.tsv
 
-      - name: Fail if there are spelling errors
-        if: steps.spell.outputs.error_count > 0
-        run: |
-          echo "There were ${{ steps.spell.outputs.error_count }} errors"
-          exit 1
-
       - name: Post errors to PR if failed
         if: ${{ github.event_name == 'pull_request' }} && ${{ steps.spell.outputs.error_count }} > 0
         uses: peter-evans/create-or-update-comment@v4
@@ -39,3 +33,9 @@ jobs:
           body: |
             **Spellcheck failed!**
             [Here are the errors.](${{ steps.artifact-upload-step.outputs.artifact-url }})
+
+      - name: Fail if there are spelling errors
+        if: steps.spell.outputs.error_count > 0
+        run: |
+          echo "There were ${{ steps.spell.outputs.error_count }} errors"
+          exit 1
