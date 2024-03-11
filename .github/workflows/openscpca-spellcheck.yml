@@ -60,7 +60,7 @@ jobs:
 
       - name: Post issue with spellcheck results
         id: spellissue
-        uses: peter-evans/create-issue-from-file@v4.0.0
+        uses: peter-evans/create-issue-from-file@v5
         with:
           title: Monthly spellcheck results
           content-filepath: ./github/cron-issue-templates/spellcheck-issue-template.md
@@ -68,14 +68,14 @@ jobs:
             OpenScPCA admin
             spelling
 
-      #- name: Comment artifact on issue
-      #  uses: peter-evans/create-or-update-comment@v4
-      #  with:
-      #    issue-number: ${{ steps.spellissue.outputs.issue-number }}
-      #    body: |
-      #      There were ${{ steps.spell.outputs.error_count }} errors.
-#
-#            [**Click to download the spelling errors TSV.**](${{ steps.artifact-upload-step.outputs.artifact-url }})
+      - name: Comment artifact on issue
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ steps.spellissue.outputs.issue-number }}
+          body: |
+            There were ${{ steps.spell.outputs.error_count }} errors.
+
+            [**Click to download the spelling errors TSV.**](${{ steps.artifact-upload-step.outputs.artifact-url }})
 
 
       - name: Fail if there are spelling errors
