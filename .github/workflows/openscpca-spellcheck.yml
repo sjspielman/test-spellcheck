@@ -33,7 +33,8 @@ jobs:
           echo "weekindex: $weekindex" >> $GITHUB_STEP_SUMMARY
 
   spellcheck:
-    if: ${{ needs.weekindex.outputs.weekindex == 0 }}
+    # UNCOMENT FOR CRONJOB
+    #if: ${{ needs.weekindex.outputs.weekindex == 0 }}
     runs-on: ubuntu-latest
     name: Spell check files
     permissions:
@@ -58,7 +59,7 @@ jobs:
           path: spell_check_errors.tsv
 
       - name: Post issue with spellcheck results
-        id: spellcheck-issue
+        id: spellissue
         uses: peter-evans/create-issue-from-file@v4.0.0
         with:
           title: Monthly spellcheck results
@@ -67,14 +68,14 @@ jobs:
             OpenScPCA admin
             spelling
 
-      - name: Comment artifact on issue
-        uses: peter-evans/create-or-update-comment@v4
-        with:
-          issue-number:  ${{ steps.spellcheck-issue.output.issue-number }}
-          body: |
-            There were ${{ steps.spell.outputs.error_count }} errors.
-
-            [**Click to download the spelling errors TSV.**](${{ steps.artifact-upload-step.outputs.artifact-url }})
+      #- name: Comment artifact on issue
+      #  uses: peter-evans/create-or-update-comment@v4
+      #  with:
+      #    issue-number: ${{ steps.spellissue.outputs.issue-number }}
+      #    body: |
+      #      There were ${{ steps.spell.outputs.error_count }} errors.
+#
+#            [**Click to download the spelling errors TSV.**](${{ steps.artifact-upload-step.outputs.artifact-url }})
 
 
       - name: Fail if there are spelling errors
