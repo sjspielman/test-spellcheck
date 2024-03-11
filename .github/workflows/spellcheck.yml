@@ -1,8 +1,9 @@
 name: Check Spelling
 on:
+  workflow_dispatch:
   pull_request:
     branches:
-     - main
+      - main
 
 jobs:
   spell-check:
@@ -16,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Spell check action
-        uses: alexslemonade/spellcheck@main
+        uses: alexslemonade/spellcheck@v0.1.1
         id: spell
         with:
           dictionary: .github/components/dictionary.txt
@@ -28,6 +29,15 @@ jobs:
           name: spell_check_errors
           path: spell_check_errors.tsv
 
+      - name: Get the contents
+        id: get-typos
+        run: |
+          {
+            echo 'typos<<EOF'
+            echo "stephanie"
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
+
       - name: Post errors to PR if failed
         if: ${{ github.event_name == 'pull_request' && steps.spell.outputs.error_count > 0 }}
         uses: peter-evans/create-or-update-comment@v4
@@ -35,7 +45,9 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             **Spellcheck failed!**
-            [Here are the errors.](${{ steps.artifact-upload-step.outputs.artifact-url }})
+            Errors:
+            ${{ steps.get-typos.output.typos }}
+            ${{ github.event.pull_request.number }}
 
       - name: Fail if there are spelling errors
         if: steps.spell.outputs.error_count > 0
