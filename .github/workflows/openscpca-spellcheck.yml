@@ -4,8 +4,8 @@ on:
     branches:
      - main
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 * * 1" # every Monday at midnight
+  ##schedule:
+  #  - cron: "0 0 * * 1" # every Monday at midnight
 
 # From https://medium.com/@VeselyCodes/bi-weekly-github-actions-7bea6be7bd96
 env:
@@ -70,7 +70,7 @@ jobs:
       - name: Comment artifact on issue
         uses: peter-evans/create-or-update-comment@v4
         with:
-          issue-number:  ${{ steps.ciff.spellcheck-issue.issue-number }}
+          issue-number:  ${{ steps.spellcheck-issue.output.issue-number }}
           body: |
             There were ${{ steps.spell.outputs.error_count }} errors.
 
