@@ -30,9 +30,13 @@ jobs:
           path: spell_check_errors.tsv
 
       - name: Get the contents
-        id: get-errors
+        id: get-typos
         run: |
-          echo "errors=`cat spell_check_errors.tsv`" >> "$GITHUB_OUTPUT"
+          {
+            echo 'typos<<EOF'
+            cat spell_check_errors.tsv
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
 
       - name: Post errors to PR if failed
         if: ${{ github.event_name == 'pull_request' && steps.spell.outputs.error_count > 0 }}
@@ -42,7 +46,7 @@ jobs:
           body: |
             **Spellcheck failed!**
             Errors:
-            (${{ steps.get-errors.output.errors }})
+            ${{ steps.get-typos.output.typos }}
 
       - name: Fail if there are spelling errors
         if: steps.spell.outputs.error_count > 0
