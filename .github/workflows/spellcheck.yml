@@ -47,6 +47,7 @@ jobs:
             **Spellcheck failed!**
             Errors:
             ${{ steps.get-typos.output.typos }}
+            ${{ github.event.pull_request.number }}
 
       - name: Fail if there are spelling errors
         if: steps.spell.outputs.error_count > 0
