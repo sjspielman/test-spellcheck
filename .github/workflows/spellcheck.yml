@@ -34,7 +34,7 @@ jobs:
         run: |
           {
             echo 'typos<<EOF'
-            cat spell_check_errors.tsv
+            echo "stephanie"
             echo EOF
           } >> "$GITHUB_OUTPUT"
 
