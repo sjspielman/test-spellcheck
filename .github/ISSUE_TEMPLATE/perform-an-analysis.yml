@@ -11,7 +11,7 @@ body:
 
         If you have not yet had a discussion about this analysis, please instead file a Discussion here: https://github.com/AlexsLemonade/OpenScPCA-analysis/discussions/.
 
-        If you know who will be performing this analysis, please also use the panel on the left to select the `Assignee`.
+        If you know who will be performing this analysis, please also use the panel on the right to select the `Assignee`.
 
   - type: textarea
     attributes:
