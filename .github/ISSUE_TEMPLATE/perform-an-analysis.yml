@@ -35,9 +35,7 @@ body:
   - type: textarea
     attributes:
       label: What computational resources will be required?
-      description: |
-      Please provide any information about the required computational resources.
-      For example, does this analysis require a GPU? Is there a certain amount of memory that will be required? Can this be accomplished on a laptop?
+      description: Please provide any information about the required computational resources. For example, does this analysis require a GPU? Is there a certain amount of memory that will be required? Can this be accomplished on a laptop?
     validations:
       required: false
 
